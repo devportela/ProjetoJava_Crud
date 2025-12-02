@@ -7,7 +7,8 @@ CREATE TABLE Cliente(
     cpf varchar(11) UNIQUE NOT NULL,
     email varchar(150),
     endereco varchar(150),
-    receberNT boolean
+    receberNT boolean,
+    telefone varchar (15)
 );
 
 CREATE TABLE Produto (
@@ -26,3 +27,4 @@ CREATE TABLE Admin (
 
 INSERT INTO Admin (id_admin, senha)
 VALUES (1, '1234');
+
