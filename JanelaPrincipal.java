@@ -5,7 +5,7 @@ public class JanelaPrincipal extends JFrame {
 
     public JanelaPrincipal() {
 //  PORTELA QUANDO VC FOR COPIAR ESSE CODIGO XOMEÇA A PARTIR DO COEMENTARIO AQUI
-        // N ESQUECE DE IMPORTAR AS CLASSES LA DE CIMA TBM 
+        // N ESQUECE DE IMPORTAR oS PACOTES LA DE CIMA TBM 
         setTitle("Sistema CRUD com relatorio");
         setSize(900, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -47,3 +47,4 @@ public class JanelaPrincipal extends JFrame {
         new JanelaPrincipal();
     }
 }
+
