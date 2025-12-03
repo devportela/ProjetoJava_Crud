@@ -11,34 +11,35 @@ public class RelatorioCliente extends JFrame {
         setLocationRelativeTo(null);
 
         DefaultTableModel modelo = new DefaultTableModel(
-                new Object[]{"ID", "Nome", "CPF", "Email", "Telefone", "Endereço", "Recebe Notificação"}, 0
+                new Object[]{"ID", "Nome", "CPF", "Email", "Telefone", "Cidade", "Rua", "Recebe Notificação"}, 0
         );
 
         JTable tabela = new JTable(modelo);
         JScrollPane scroll = new JScrollPane(tabela);
 
-        
+        // CARREGAR OS CLIENTES
         ClienteDAO dao = new ClienteDAO();
         List<Cliente> lista = dao.listar();
 
         for (Cliente c : lista) {
             modelo.addRow(new Object[]{
-                    c.getId_cliente(),
+                    c.getId(),
                     c.getNome(),
                     c.getCpf(),
                     c.getEmail(),
                     c.getTelefone(),
-                    c.getEndereco(),
-                    c.isReceberNT() ? "Sim" : "Não"
+                    c.getCidade(),
+                    c.getRua(),
+                    c.isReceberNotificacao() ? "Sim" : "Não"
             });
         }
 
-        
+        // TOTAL DE CLIENTES
         JLabel total = new JLabel("Total de clientes cadastrados: " + lista.size());
         total.setFont(new Font("Arial", Font.BOLD, 16));
         total.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        
+        // ORGANIZAR LAYOUT
         setLayout(new BorderLayout());
         add(scroll, BorderLayout.CENTER);
         add(total, BorderLayout.SOUTH);
@@ -46,4 +47,3 @@ public class RelatorioCliente extends JFrame {
         setVisible(true);
     }
 }
-
