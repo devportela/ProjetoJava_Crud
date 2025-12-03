@@ -31,7 +31,7 @@ public class ProdutoDAO {
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, produto.getNome());
-            stmt.setString(2, produto.gerDescricao());
+            stmt.setString(2, produto.getDescricao());
             stmt.setInt(3, produto.getQuantidade());
             stmt.setDouble(4, produto.getPrecoUnitario());
             stmt.setString(5, produto.getFornecedor());
@@ -53,3 +53,4 @@ public class ProdutoDAO {
 
     //falta metodo listar
 }
+
