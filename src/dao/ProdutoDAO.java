@@ -1,9 +1,12 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-public class ProdutoDAO {
+import model.Produto;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProdutoDAO extends Produto{
     private Connection conn;
 
     public ProdutoDAO(){
@@ -53,5 +56,27 @@ public class ProdutoDAO {
         }
     }
 
-    //falta metodo listar
+    //metodo listar
+
+    public List<Produto> listar(){
+        List<Produto>lista = new ArrayList<>();
+        String sql = "SELECT * from Produto";
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                Produto produto = new Produto();
+                produto.setId(rs.getInt("id"));
+                produto.setNome(rs.getString("Nome"));
+                produto.setDescricao(rs.getString("Descrição"));
+                produto.setQuantidade(rs.getInt("Quantidade"));
+                produto.setPrecoUnitario(rs.getFloat("Preço Unitário"));
+                produto.setFornecedor(rs.getString("Fornecedor"));
+                lista.add(produto);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return lista;
+    }
 }
