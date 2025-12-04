@@ -1,5 +1,6 @@
+package view;
+
 import javax.swing.*;
-import java.awt.event.*;
 
 public class JanelaPrincipal extends JFrame {
 
@@ -18,7 +19,7 @@ public class JanelaPrincipal extends JFrame {
         JMenuBar barraMenu = new JMenuBar();
 
         // MENU CLIENTE
-        JMenu menuCliente = new JMenu("Cliente");
+        JMenu menuCliente = new JMenu("model.Cliente");
 
         JMenuItem itemCadastrarCliente = new JMenuItem("Cadastrar");
         JMenuItem itemAtualizarCliente = new JMenuItem("Atualizar");
@@ -31,7 +32,7 @@ public class JanelaPrincipal extends JFrame {
         menuCliente.add(itemListarCliente);
 
         // MENU PRODUTO
-        JMenu menuProduto = new JMenu("Produto");
+        JMenu menuProduto = new JMenu("model.Produto");
 
         JMenuItem itemCadastrarProduto = new JMenuItem("Cadastrar");
         JMenuItem itemAtualizarProduto = new JMenuItem("Atualizar");

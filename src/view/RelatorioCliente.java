@@ -1,3 +1,7 @@
+package view;
+
+import dao.ClienteDAO;
+import model.Cliente;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
