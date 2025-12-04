@@ -8,10 +8,10 @@
 
 
 
-    public class clienteDAO {
+    public class ClienteDAO {
         private Connection conn; //guarda uma conexao ja existente com o banco de dados
 
-        public clienteDAO(Connection conn) {
+        public ClienteDAO(Connection conn) {
             this.conn = conn; //metodo construtos para acessar o banco
 
         }  }
@@ -116,4 +116,5 @@
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
