@@ -8,7 +8,7 @@ public class JanelaPrincipal extends JFrame {
 
     public JanelaPrincipal() {
         setTitle("Sistema CRUD - Janela Principal");
-        setSize(800, 600);
+        setSize(350, 63);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -98,6 +98,7 @@ public class JanelaPrincipal extends JFrame {
 
     //chamar painel de dados
 
+    //os métodos abaixo são para excluir
     private void abrirCadastroCliente(){
         //precisa ajustar a classe cliente
     }
