@@ -1,5 +1,7 @@
 package view;
 
+import dao.ClienteDAO;
+
 import javax.swing.*;
 
 public class JanelaPrincipal extends JFrame {
@@ -19,7 +21,7 @@ public class JanelaPrincipal extends JFrame {
         JMenuBar barraMenu = new JMenuBar();
 
         // MENU CLIENTE
-        JMenu menuCliente = new JMenu("model.Cliente");
+        JMenu menuCliente = new JMenu("Cliente");
 
         JMenuItem itemCadastrarCliente = new JMenuItem("Cadastrar");
         JMenuItem itemAtualizarCliente = new JMenuItem("Atualizar");
@@ -32,7 +34,7 @@ public class JanelaPrincipal extends JFrame {
         menuCliente.add(itemListarCliente);
 
         // MENU PRODUTO
-        JMenu menuProduto = new JMenu("model.Produto");
+        JMenu menuProduto = new JMenu("Produto");
 
         JMenuItem itemCadastrarProduto = new JMenuItem("Cadastrar");
         JMenuItem itemAtualizarProduto = new JMenuItem("Atualizar");
@@ -94,8 +96,10 @@ public class JanelaPrincipal extends JFrame {
 
     // AÇÕES (telas da equipe 2)
 
-    private void abrirCadastroCliente() {
-        JOptionPane.showMessageDialog(this, "ABRIR tela de cadastro de CLIENTE");
+    //chamar painel de dados
+
+    private void abrirCadastroCliente(){
+        //precisa ajustar a classe cliente
     }
 
     private void atualizarCliente() {

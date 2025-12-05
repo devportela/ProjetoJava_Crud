@@ -12,20 +12,18 @@ import java.util.ArrayList;
 
 
 
-public class ClienteDAO extends Cliente {
+public class ClienteDAO{
     private Connection conn; //guarda uma conexao ja existente com o banco de dados
-
-
 
 // SALVAR CLIENTE
 // -------------------------
 
     public void salvar(Cliente cliente) {
         String sql = "INSERT INTO clientes (nome, email, cpf, telefone, cidade, rua, receberNotificacao )" +
-                " VALUES (?, ?, ? , ? , ? , ?)";
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql); // monta a query e envia para o banco
+        try (PreparedStatement stmt = conn.prepareStatement(sql)){
+             // monta a query e envia para o banco
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getEmail());
             stmt.setString(3, cliente.getCpf());
@@ -49,9 +47,8 @@ public class ClienteDAO extends Cliente {
 
         String sql = "SELECT * FROM clientes";
 
-        try {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)){
 
             while (rs.next()) {
                 Cliente c = new Cliente();
@@ -66,15 +63,10 @@ public class ClienteDAO extends Cliente {
 
                 lista.add(c);
             }
-            rs.close();
-            stmt.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return lista;
-
     }
 
 //ATUALIZAR CLIENTE
@@ -84,8 +76,7 @@ public class ClienteDAO extends Cliente {
         String sql = "UPDATE clientes SET nome = ?, email = ?, cpf = ?, telefone = ?, cidade = ?, rua = ?, receberNotificacao = ? " +
                 "WHERE id = ?";
 
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
+        try (PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getEmail());
             stmt.setString(3, cliente.getCpf());
@@ -95,7 +86,6 @@ public class ClienteDAO extends Cliente {
             stmt.setBoolean(8, cliente.isReceberNotificacao());
             stmt.setInt(9, cliente.getId());
             stmt.executeUpdate();
-            stmt.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -108,11 +98,9 @@ public class ClienteDAO extends Cliente {
     public void excluir(int id) {
         String sql = "DELETE FROM clientes WHERE id = ?";
 
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
+        try (PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setInt(1, id);
             stmt.executeUpdate();
-            stmt.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
