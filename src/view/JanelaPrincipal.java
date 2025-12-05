@@ -11,60 +11,62 @@ public class JanelaPrincipal extends JFrame {
 
         criarMenus();
 
-// Define tamanho fixo
         setSize(360, 67);
         setResizable(false);
         setVisible(true);
 
     }
-
     private void criarMenus() {
         JMenuBar barraMenu = new JMenuBar();
 
-        // MENU CLIENTE
+        // =============== MENU CLIENTE ===============
         JMenu menuCliente = new JMenu("Cliente");
+        JMenuItem itemCadCliente = new JMenuItem("Cadastro de Cliente");
+        menuCliente.add(itemCadCliente);
 
-        // MENU PRODUTO
+        // =============== MENU PRODUTO ===============
         JMenu menuProduto = new JMenu("Produto");
+        JMenuItem itemCadProduto = new JMenuItem("Cadastro de Produto");
+        menuProduto.add(itemCadProduto);
 
-
-        // MENU RELATÓRIO
+        // =============== MENU RELATÓRIOS ===============
         JMenu menuRelatorio = new JMenu("Relatórios");
-
         JMenuItem itemRelCliente = new JMenuItem("Relatório de Clientes");
         JMenuItem itemRelProduto = new JMenuItem("Relatório de Produtos");
-
         menuRelatorio.add(itemRelCliente);
         menuRelatorio.add(itemRelProduto);
 
-        // MENU SISTEMA
+        // =============== MENU SISTEMA ===============
         JMenu menuSistema = new JMenu("Sistema");
         JMenuItem itemSair = new JMenuItem("Sair");
-
         menuSistema.add(itemSair);
 
-        // Adiciona menus à barra com espaçamento
+        // ---- Adiciona menus à barra com espaço ----
         barraMenu.add(menuCliente);
-        barraMenu.add(Box.createHorizontalStrut(35));  // espaço
+        barraMenu.add(Box.createHorizontalStrut(35));
         barraMenu.add(menuProduto);
-        barraMenu.add(Box.createHorizontalStrut(35));  // espaço
+        barraMenu.add(Box.createHorizontalStrut(35));
         barraMenu.add(menuRelatorio);
-        barraMenu.add(Box.createHorizontalStrut(35));  // espaço
+        barraMenu.add(Box.createHorizontalStrut(35));
         barraMenu.add(menuSistema);
+
         setJMenuBar(barraMenu);
 
-        // AÇÕES DOS MENUS
+        // =============== AÇÕES ====================
+        // MENU CLIENTE
+        //itemCadCliente.addActionListener(e -> new PainelClienteGUI());
 
-
+        // MENU PRODUTO
+        //itemCadProduto.addActionListener(e -> new PainelProdutoGUI());
 
         // RELATÓRIOS
-        itemRelCliente.addActionListener(e -> new RelatorioCliente());  // ⬅ AQUI ESTÁ O RELATÓRIO REAL
+        itemRelCliente.addActionListener(e -> new RelatorioCliente());
         itemRelProduto.addActionListener(e -> gerarRelatorioProdutos());
+
         // SAIR
         itemSair.addActionListener(e -> System.exit(0));
     }
 
-    // AÇÕES (telas da equipe 2)
 
     private void abrirCadastroCliente() {
         JOptionPane.showMessageDialog(this, "ABRIR tela de cadastro de CLIENTE");

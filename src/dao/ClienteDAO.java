@@ -1,109 +1,115 @@
 package dao;
+
 import model.Cliente;
-
-
 import java.sql.*;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import dao.Conexao;
 
+public class ClienteDAO {
 
+    // ===========================
+    //  SALVAR CLIENTE
+    // ===========================
+    public void salvar(Cliente c) {
+        String sql = "INSERT INTO cliente (nome, cpf, email, telefone, cidade, rua, receberNotificacao) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
+        try (Connection conn = Conexao.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-public class ClienteDAO{
-    private Connection conn; //guarda uma conexao ja existente com o banco de dados
+            stmt.setString(1, c.getNome());
+            stmt.setString(2, c.getCpf());
+            stmt.setString(3, c.getEmail());
+            stmt.setString(4, c.getTelefone());
+            stmt.setString(5, c.getCidade());
+            stmt.setString(6, c.getRua());
+            stmt.setBoolean(7, c.isReceberNotificacao());
 
-// SALVAR CLIENTE
-// -------------------------
+            stmt.execute();
+            System.out.println("Cliente salvo com sucesso!");
 
-    public void salvar(Cliente cliente) {
-        String sql = "INSERT INTO clientes (nome, email, cpf, telefone, cidade, rua, receberNotificacao )" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-        try (PreparedStatement stmt = conn.prepareStatement(sql)){
-             // monta a query e envia para o banco
-            stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getEmail());
-            stmt.setString(3, cliente.getCpf());
-            stmt.setString(4, cliente.getTelefone());
-            stmt.setString(5, cliente.getCidade());
-            stmt.setString(6, cliente.getRua());
-            stmt.setBoolean(7, cliente.isReceberNotificacao());
-            stmt.executeUpdate(); // executa o banco
-            stmt.close();           //finaliza a operacao
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Erro ao salvar: " + e.getMessage());
         }
-        //query e um comando ou instrução que enviamos ao banco exemplo : "inset", "delete"
     }
 
-//LISTAR CLIENTES
-//-----------------------
-
+    // ===========================
+    //  LISTAR CLIENTES
+    // ===========================
     public List<Cliente> listar() {
         List<Cliente> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM clientes";
+        String sql = "SELECT * FROM cliente";
 
-        try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)){
+        try (Connection conn = Conexao.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 Cliente c = new Cliente();
+
                 c.setId(rs.getInt("id"));
                 c.setNome(rs.getString("nome"));
-                c.setEmail(rs.getString("email"));
                 c.setCpf(rs.getString("cpf"));
+                c.setEmail(rs.getString("email"));
                 c.setTelefone(rs.getString("telefone"));
-                c.setCidade(rs.getString("Cidade"));
-                c.setRua(rs.getString("Rua"));
+                c.setCidade(rs.getString("cidade"));
+                c.setRua(rs.getString("rua"));
                 c.setReceberNotificacao(rs.getBoolean("receberNotificacao"));
 
                 lista.add(c);
             }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Erro ao listar: " + e.getMessage());
         }
+
         return lista;
     }
 
-//ATUALIZAR CLIENTE
+    // ===========================
+    //  ATUALIZAR CLIENTE
+    // ===========================
+    public void atualizar(Cliente c) {
+        String sql = "UPDATE cliente SET nome=?, cpf=?, email=?, telefone=?, cidade=?, rua=?, receberNotificacao=? "
+                + "WHERE id=?";
 
-    public void atualizar(Cliente cliente) {
+        try (Connection conn = Conexao.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        String sql = "UPDATE clientes SET nome = ?, email = ?, cpf = ?, telefone = ?, cidade = ?, rua = ?, receberNotificacao = ? " +
-                "WHERE id = ?";
+            stmt.setString(1, c.getNome());
+            stmt.setString(2, c.getCpf());
+            stmt.setString(3, c.getEmail());
+            stmt.setString(4, c.getTelefone());
+            stmt.setString(5, c.getCidade());
+            stmt.setString(6, c.getRua());
+            stmt.setBoolean(7, c.isReceberNotificacao());
+            stmt.setInt(8, c.getId());
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)){
-            stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getEmail());
-            stmt.setString(3, cliente.getCpf());
-            stmt.setString(4, cliente.getTelefone());
-            stmt.setString(6, cliente.getCidade());
-            stmt.setString(7, cliente.getRua());
-            stmt.setBoolean(8, cliente.isReceberNotificacao());
-            stmt.setInt(9, cliente.getId());
-            stmt.executeUpdate();
+            stmt.execute();
+            System.out.println("Cliente atualizado com sucesso!");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Erro ao atualizar: " + e.getMessage());
         }
     }
 
+    // ===========================
+    //  DELETAR CLIENTE
+    // ===========================
+    public void deletar(int id) {
+        String sql = "DELETE FROM cliente WHERE id=?";
 
-// EXCLUIR CLIENTE
+        try (Connection conn = Conexao.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-    public void excluir(int id) {
-        String sql = "DELETE FROM clientes WHERE id = ?";
-
-        try (PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setInt(1, id);
-            stmt.executeUpdate();
+            stmt.execute();
+            System.out.println("Cliente excluído!");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Erro ao deletar: " + e.getMessage());
         }
     }
 }
