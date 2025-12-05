@@ -21,12 +21,12 @@ public class JanelaPrincipal extends JFrame {
 
         // =============== MENU CLIENTE ===============
         JMenu menuCliente = new JMenu("Cliente");
-        JMenuItem itemCadCliente = new JMenuItem("Cadastro de Cliente");
+        JMenuItem itemCadCliente = new JMenuItem("Painel Cadastro De Cliente");
         menuCliente.add(itemCadCliente);
 
         // =============== MENU PRODUTO ===============
         JMenu menuProduto = new JMenu("Produto");
-        JMenuItem itemCadProduto = new JMenuItem("Cadastro de Produto");
+        JMenuItem itemCadProduto = new JMenuItem("Painel Cadastro De Produto");
         menuProduto.add(itemCadProduto);
 
         // =============== MENU RELATÓRIOS ===============
@@ -61,51 +61,10 @@ public class JanelaPrincipal extends JFrame {
 
         // RELATÓRIOS
         itemRelCliente.addActionListener(e -> new RelatorioCliente());
-        itemRelProduto.addActionListener(e -> gerarRelatorioProdutos());
+        itemRelProduto.addActionListener(e -> new RelatorioProduto());
 
         // SAIR
         itemSair.addActionListener(e -> System.exit(0));
-    }
-
-
-    private void abrirCadastroCliente() {
-        JOptionPane.showMessageDialog(this, "ABRIR tela de cadastro de CLIENTE");
-    }
-
-    private void atualizarCliente() {
-        JOptionPane.showMessageDialog(this, "ABRIR tela de atualizar CLIENTE");
-    }
-
-    private void deletarCliente() {
-        JOptionPane.showMessageDialog(this, "DELETAR CLIENTE");
-    }
-
-    private void listarClientes() {
-        JOptionPane.showMessageDialog(this, "LISTAR CLIENTES");
-    }
-
-    private void abrirCadastroProduto() {
-        JOptionPane.showMessageDialog(this, "ABRIR tela de cadastro de PRODUTO");
-    }
-
-    private void atualizarProduto() {
-        JOptionPane.showMessageDialog(this, "ABRIR tela de atualizar PRODUTO");
-    }
-
-    private void deletarProduto() {
-        JOptionPane.showMessageDialog(this, "DELETAR PRODUTO");
-    }
-
-    private void listarProdutos() {
-        JOptionPane.showMessageDialog(this, "LISTAR PRODUTOS");
-    }
-
-    private void gerarRelatorioProdutos() {
-        JOptionPane.showMessageDialog(this, "GERAR RELATÓRIO DE PRODUTOS");
-    }
-
-    private void gerarRelatorioGeral() {
-        JOptionPane.showMessageDialog(this, "GERAR RELATÓRIO GERAL");
     }
 
     public static void main(String[] args) {
