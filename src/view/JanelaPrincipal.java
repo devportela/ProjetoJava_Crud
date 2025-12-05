@@ -1,20 +1,21 @@
 package view;
 
-import dao.ClienteDAO;
-
 import javax.swing.*;
 
 public class JanelaPrincipal extends JFrame {
 
     public JanelaPrincipal() {
         setTitle("Sistema CRUD - Janela Principal");
-        setSize(350, 63);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         criarMenus();
 
+// Define tamanho fixo
+        setSize(360, 67);
+        setResizable(false);
         setVisible(true);
+
     }
 
     private void criarMenus() {
@@ -23,39 +24,18 @@ public class JanelaPrincipal extends JFrame {
         // MENU CLIENTE
         JMenu menuCliente = new JMenu("Cliente");
 
-        JMenuItem itemCadastrarCliente = new JMenuItem("Cadastrar");
-        JMenuItem itemAtualizarCliente = new JMenuItem("Atualizar");
-        JMenuItem itemDeletarCliente = new JMenuItem("Deletar");
-        JMenuItem itemListarCliente = new JMenuItem("Listar");
-
-        menuCliente.add(itemCadastrarCliente);
-        menuCliente.add(itemAtualizarCliente);
-        menuCliente.add(itemDeletarCliente);
-        menuCliente.add(itemListarCliente);
-
         // MENU PRODUTO
         JMenu menuProduto = new JMenu("Produto");
 
-        JMenuItem itemCadastrarProduto = new JMenuItem("Cadastrar");
-        JMenuItem itemAtualizarProduto = new JMenuItem("Atualizar");
-        JMenuItem itemDeletarProduto = new JMenuItem("Deletar");
-        JMenuItem itemListarProduto = new JMenuItem("Listar");
-
-        menuProduto.add(itemCadastrarProduto);
-        menuProduto.add(itemAtualizarProduto);
-        menuProduto.add(itemDeletarProduto);
-        menuProduto.add(itemListarProduto);
 
         // MENU RELATÓRIO
         JMenu menuRelatorio = new JMenu("Relatórios");
 
         JMenuItem itemRelCliente = new JMenuItem("Relatório de Clientes");
         JMenuItem itemRelProduto = new JMenuItem("Relatório de Produtos");
-        JMenuItem itemRelGeral = new JMenuItem("Relatório Geral");
 
         menuRelatorio.add(itemRelCliente);
         menuRelatorio.add(itemRelProduto);
-        menuRelatorio.add(itemRelGeral);
 
         // MENU SISTEMA
         JMenu menuSistema = new JMenu("Sistema");
@@ -63,44 +43,31 @@ public class JanelaPrincipal extends JFrame {
 
         menuSistema.add(itemSair);
 
-        // Adiciona menus à barra
+        // Adiciona menus à barra com espaçamento
         barraMenu.add(menuCliente);
+        barraMenu.add(Box.createHorizontalStrut(35));  // espaço
         barraMenu.add(menuProduto);
+        barraMenu.add(Box.createHorizontalStrut(35));  // espaço
         barraMenu.add(menuRelatorio);
+        barraMenu.add(Box.createHorizontalStrut(35));  // espaço
         barraMenu.add(menuSistema);
-
         setJMenuBar(barraMenu);
 
         // AÇÕES DOS MENUS
 
-        // CLIENTE
-        itemCadastrarCliente.addActionListener(e -> abrirCadastroCliente());
-        itemAtualizarCliente.addActionListener(e -> atualizarCliente());
-        itemDeletarCliente.addActionListener(e -> deletarCliente());
-        itemListarCliente.addActionListener(e -> listarClientes());
 
-        // PRODUTO
-        itemCadastrarProduto.addActionListener(e -> abrirCadastroProduto());
-        itemAtualizarProduto.addActionListener(e -> atualizarProduto());
-        itemDeletarProduto.addActionListener(e -> deletarProduto());
-        itemListarProduto.addActionListener(e -> listarProdutos());
 
         // RELATÓRIOS
         itemRelCliente.addActionListener(e -> new RelatorioCliente());  // ⬅ AQUI ESTÁ O RELATÓRIO REAL
         itemRelProduto.addActionListener(e -> gerarRelatorioProdutos());
-        itemRelGeral.addActionListener(e -> gerarRelatorioGeral());
-
         // SAIR
         itemSair.addActionListener(e -> System.exit(0));
     }
 
     // AÇÕES (telas da equipe 2)
 
-    //chamar painel de dados
-
-    //os métodos abaixo são para excluir
-    private void abrirCadastroCliente(){
-        //precisa ajustar a classe cliente
+    private void abrirCadastroCliente() {
+        JOptionPane.showMessageDialog(this, "ABRIR tela de cadastro de CLIENTE");
     }
 
     private void atualizarCliente() {
