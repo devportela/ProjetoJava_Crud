@@ -6,7 +6,7 @@ import model.Produto;
 import javax.swing.*;
 import java.awt.*;
 
-public class ProdutoGUI extends JFrame {
+public class PainelProdutoGUI extends JFrame {
 
     private JTextField campoNome;
     private JTextField campoDescricao;
@@ -16,7 +16,7 @@ public class ProdutoGUI extends JFrame {
 
     private JButton botaoSalvar;
 
-    public ProdutoGUI() {
+    public PainelProdutoGUI() {
         setTitle("Cadastro de Produtos");
         setSize(320, 400);
         setLocationRelativeTo(null);

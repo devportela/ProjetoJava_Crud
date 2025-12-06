@@ -1,7 +1,7 @@
 package view;
 
-import gui.ClienteGUI;
-import gui.ProdutoGUI;
+import gui.PainelClienteGUI;
+import gui.PainelProdutoGUI;
 
 import javax.swing.*;
 
@@ -14,7 +14,7 @@ public class JanelaPrincipal extends JFrame {
 
         criarMenus();
 
-        setSize(360, 67);
+        setSize(450, 67);
         setResizable(false);
         setVisible(true);
 
@@ -25,16 +25,19 @@ public class JanelaPrincipal extends JFrame {
 
         // =============== MENU CLIENTE ===============
         JMenu menuCliente = new JMenu("Cliente");
+        menuCliente.setIcon(new ImageIcon("src/imgs/cliente_icon.png"));  // Aqui você adiciona o ícone ao menu
         JMenuItem itemCadCliente = new JMenuItem("Painel Cadastro De Cliente");
         menuCliente.add(itemCadCliente);
 
         // =============== MENU PRODUTO ===============
         JMenu menuProduto = new JMenu("Produto");
+        menuProduto.setIcon(new ImageIcon("src/imgs/produto_icon.png"));
         JMenuItem itemCadProduto = new JMenuItem("Painel Cadastro De Produto");
         menuProduto.add(itemCadProduto);
 
         // =============== MENU RELATÓRIOS ===============
         JMenu menuRelatorio = new JMenu("Relatórios");
+        menuRelatorio.setIcon(new ImageIcon("src/imgs/relatorio.png"));
         JMenuItem itemRelCliente = new JMenuItem("Relatório de Clientes");
         JMenuItem itemRelProduto = new JMenuItem("Relatório de Produtos");
         menuRelatorio.add(itemRelCliente);
@@ -42,6 +45,7 @@ public class JanelaPrincipal extends JFrame {
 
         // =============== MENU SISTEMA ===============
         JMenu menuSistema = new JMenu("Sistema");
+        menuSistema.setIcon(new ImageIcon("src/imgs/sistema_icon.png"));
         JMenuItem itemSair = new JMenuItem("Sair");
         menuSistema.add(itemSair);
 
@@ -58,10 +62,10 @@ public class JanelaPrincipal extends JFrame {
 
         // =============== AÇÕES ====================
         // MENU CLIENTE
-        itemCadCliente.addActionListener(e-> new ClienteGUI());
+        itemCadCliente.addActionListener(e-> new PainelClienteGUI());
 
         // MENU PRODUTO
-        itemCadProduto.addActionListener(e -> new ProdutoGUI());
+        itemCadProduto.addActionListener(e -> new PainelProdutoGUI());
 
         // RELATÓRIOS
         itemRelCliente.addActionListener(e -> new RelatorioCliente());

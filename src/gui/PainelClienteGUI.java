@@ -6,7 +6,7 @@ import model.Cliente;
 import javax.swing.*;
 import java.awt.*;
 
-public class ClienteGUI extends JFrame {
+public class PainelClienteGUI extends JFrame {
 
 
 
@@ -22,7 +22,7 @@ public class ClienteGUI extends JFrame {
     private JCheckBox campoReceberNT;
     private JPanel panelBotoes;
 
-    public ClienteGUI() {
+    public PainelClienteGUI() {
         setTitle("Tela de Clientes");
         setSize(320, 500);
         setLocationRelativeTo(null);

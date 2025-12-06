@@ -1,7 +1,5 @@
-package view;
+package components;
 
-import components.PainelLoginAndRegister;
-import components.PanelCover;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 

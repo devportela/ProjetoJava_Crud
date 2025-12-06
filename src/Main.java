@@ -1,5 +1,4 @@
-package view;
-
+import components.MainForm;
 import components.PanelCover;
 import components.PainelLoginAndRegister;
 import net.miginfocom.swing.MigLayout;
