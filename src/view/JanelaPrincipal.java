@@ -15,6 +15,7 @@ public class JanelaPrincipal extends JFrame {
         setResizable(false);
         setVisible(true);
 
+
     }
     private void criarMenus() {
         JMenuBar barraMenu = new JMenuBar();
