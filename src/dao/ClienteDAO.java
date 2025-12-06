@@ -94,7 +94,7 @@ public class ClienteDAO {
     //  DELETAR CLIENTE
     // ===========================
     public void deletar(int id) {
-        String sql = "DELETE FROM cliente WHERE id=?";
+        String sql = "DELETE FROM cliente WHERE id_cliente=?";
 
         try (Connection conn = Conexao.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

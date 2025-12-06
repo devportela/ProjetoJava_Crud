@@ -65,7 +65,6 @@ public class PainelLoginAndRegister extends javax.swing.JLayeredPane {
 
         // --- CAMPO EMAIL ---
         MyTextField txtId = new MyTextField();
-        txtId.setPrefixIcon(new ImageIcon(getClass().getResource("/imgs/mail.png")));
         txtId.setHint("Credencial");
         txtId.setBackground(new Color(240, 255, 250));
         txtId.setFont(new Font("SansSerif", Font.PLAIN, 15));
@@ -73,7 +72,6 @@ public class PainelLoginAndRegister extends javax.swing.JLayeredPane {
 
         // --- CAMPO SENHA ---
         MyPasswordField txtPass = new MyPasswordField();
-        txtPass.setPrefixIcon(new ImageIcon(getClass().getResource("/imgs/pass.png")));
         txtPass.setHint("Senha");
         txtPass.setBackground(new Color(240, 255, 250));
         txtPass.setFont(new Font("SansSerif", Font.PLAIN, 15));
