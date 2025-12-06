@@ -1,5 +1,6 @@
 package dao;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -11,7 +12,7 @@ public class Conexao {
             String password = "";
             return DriverManager.getConnection(url, user, password);
         } catch (Exception e) {
-                throw new RuntimeException("Erro na conexao:" + e.getMessage());
+            throw new RuntimeException("Erro na conexao:" + e.getMessage());
         }
     }
 }

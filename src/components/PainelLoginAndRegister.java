@@ -1,11 +1,11 @@
 package components;
 
+
 import dao.AdminDAO;
 import swing.Button;
 import swing.MyPasswordField;
 import swing.MyTextField;
 import view.JanelaPrincipal;
-import view.MainForm;
 
 import java.awt.Color;
 import java.awt.Font;

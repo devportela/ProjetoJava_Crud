@@ -81,7 +81,7 @@ public class Main extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         JFrame frame = new JFrame();
-        frame.setTitle("Login");
+        frame.setTitle("Login Admin");
         // AQUI define o tamanho
         frame.setSize(1051, 699);
         frame.setResizable(false);

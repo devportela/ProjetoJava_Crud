@@ -1,18 +1,12 @@
 package dao;
-
 import model.Cliente;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import dao.Conexao;
 
 public class ClienteDAO {
-
-    // ===========================
-    //  SALVAR CLIENTE
-    // ===========================
     public void salvar(Cliente c) {
-        String sql = "INSERT INTO cliente (nome, cpf, email, telefone, cidade, rua, receberNotificacao) "
+        String sql = "INSERT INTO cliente (nome, cpf, email, telefone, cidade, rua, receberNT) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Conexao.getConnection();
@@ -49,14 +43,14 @@ public class ClienteDAO {
             while (rs.next()) {
                 Cliente c = new Cliente();
 
-                c.setId(rs.getInt("id"));
+                c.setId(rs.getInt("id_cliente"));
                 c.setNome(rs.getString("nome"));
                 c.setCpf(rs.getString("cpf"));
                 c.setEmail(rs.getString("email"));
                 c.setTelefone(rs.getString("telefone"));
                 c.setCidade(rs.getString("cidade"));
                 c.setRua(rs.getString("rua"));
-                c.setReceberNotificacao(rs.getBoolean("receberNotificacao"));
+                c.setReceberNotificacao(rs.getBoolean("receberNT")); // ← CORREÇÃO
 
                 lista.add(c);
             }
@@ -68,12 +62,13 @@ public class ClienteDAO {
         return lista;
     }
 
+
     // ===========================
     //  ATUALIZAR CLIENTE
     // ===========================
     public void atualizar(Cliente c) {
-        String sql = "UPDATE cliente SET nome=?, cpf=?, email=?, telefone=?, cidade=?, rua=?, receberNotificacao=? "
-                + "WHERE id=?";
+        String sql = "UPDATE cliente SET nome=?, cpf=?, email=?, telefone=?, cidade=?, rua=?, receberNT=? "
+                + "WHERE id_cliente=?";
 
         try (Connection conn = Conexao.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -113,3 +108,5 @@ public class ClienteDAO {
         }
     }
 }
+
+

@@ -1,5 +1,8 @@
 package view;
 
+import gui.ClienteGUI;
+import gui.ProdutoGUI;
+
 import javax.swing.*;
 
 public class JanelaPrincipal extends JFrame {
@@ -55,10 +58,10 @@ public class JanelaPrincipal extends JFrame {
 
         // =============== AÇÕES ====================
         // MENU CLIENTE
-        //itemCadCliente.addActionListener(e -> new PainelClienteGUI());
+        itemCadCliente.addActionListener(e-> new ClienteGUI());
 
         // MENU PRODUTO
-        //itemCadProduto.addActionListener(e -> new PainelProdutoGUI());
+        itemCadProduto.addActionListener(e -> new ProdutoGUI());
 
         // RELATÓRIOS
         itemRelCliente.addActionListener(e -> new RelatorioCliente());
@@ -66,9 +69,5 @@ public class JanelaPrincipal extends JFrame {
 
         // SAIR
         itemSair.addActionListener(e -> System.exit(0));
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new JanelaPrincipal());
     }
 }
