@@ -1,17 +1,23 @@
 package model;
 
+
 public class Produto {
 
-
+    // Identificador único do produto
     private int id;
+
+    // Informações básicas do produto
     private String nome;
     private String descricao;
     private int quantidade;
     private double precoUnitario;
     private String fornecedor;
 
+    // Construtor padrão
     public Produto() {
     }
+
+    // ===== GETTERS E SETTERS =====
 
     public int getId() {
         return id;
@@ -61,5 +67,3 @@ public class Produto {
         this.fornecedor = fornecedor;
     }
 }
-
-

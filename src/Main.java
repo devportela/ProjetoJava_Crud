@@ -6,29 +6,29 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 
 public class Main extends javax.swing.JFrame {
-    private javax.swing.JLayeredPane bg;
-    private MigLayout layout;
-    private PanelCover cover;
-    private PainelLoginAndRegister loginPanel;
+
+    private javax.swing.JLayeredPane bg;                // Camada principal para sobreposição de componentes
+    private MigLayout layout;                           // Layout manager flexível do MigLayout
+    private PanelCover cover;                           // Painel de fundo (verde)
+    private PainelLoginAndRegister loginPanel;         // Painel de login e registro
 
     public Main() {
-        initComponents();
-        init();
+        initComponents();   // Inicializa componentes Swing padrão
+        init();             // Inicializa layout customizado e adiciona painéis
     }
 
     private void init() {
+        layout = new MigLayout("fill, insets 0");       // Layout principal sem margens
 
-        layout = new MigLayout("fill, insets 0");
+        cover = new PanelCover();                        // Painel de fundo
+        loginPanel = new PainelLoginAndRegister();      // Painel de login
 
-        cover = new PanelCover();                 // FUNDO VERDE
-        loginPanel = new PainelLoginAndRegister(); // PAINEL DE LOGIN
+        bg.setLayout(new MigLayout("fill", "[grow]", "[grow]")); // Layout da camada principal
 
-        bg.setLayout(new MigLayout("fill", "[grow]", "[grow]"));
-
-        // ADICIONA O FUNDO VERDE
+        // Adiciona o fundo verde
         bg.add(cover, "grow");
 
-        // ADICIONA O PAINEL DE LOGIN POR CIMA
+        // Configura posição e tamanho do painel de login
         cover.setLayout(null);
         loginPanel.setBounds(
                 (933 - 350) / 2,
@@ -37,21 +37,17 @@ public class Main extends javax.swing.JFrame {
         );
         cover.add(loginPanel);
         bg.add(loginPanel, "center, w 350!, h 400!");
-
-
     }
-
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
-
         bg = new javax.swing.JLayeredPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         bg.setBackground(new java.awt.Color(255, 255, 255));
         bg.setOpaque(true);
 
+        // Layout da camada principal
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -63,6 +59,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(0, 537, Short.MAX_VALUE)
         );
 
+        // Layout do frame principal
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -74,22 +71,18 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(bg)
         );
 
-        pack();
-        setLocationRelativeTo(null);
+        pack();                       // Ajusta tamanho de acordo com os componentes
+        setLocationRelativeTo(null);  // Centraliza janela
     }
 
     public static void main(String args[]) {
         JFrame frame = new JFrame();
         frame.setTitle("Login Admin");
-        // AQUI define o tamanho
-        frame.setSize(1051, 699);
+        frame.setSize(1051, 699);             // Tamanho fixo
         frame.setResizable(false);
-        frame.setContentPane(new MainForm());
-        frame.pack();                // <-- Ajusta o tamanho automaticamente
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-
+        frame.setContentPane(new MainForm()); // Conteúdo principal
+        frame.pack();                          // Ajusta tamanho automaticamente
+        frame.setLocationRelativeTo(null);    // Centraliza tela
+        frame.setVisible(true);                // Exibe janela
     }
-
-
 }

@@ -1,83 +1,75 @@
 package components;
 
-
 import dao.AdminDAO;
 import swing.Button;
 import swing.MyPasswordField;
 import swing.MyTextField;
 import view.JanelaPrincipal;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 import javax.swing.*;
 
 public class PainelLoginAndRegister extends javax.swing.JLayeredPane {
 
     public PainelLoginAndRegister() {
         initComponents();
-        estilizarPainel();     // ✓ deixa o painel bonito
-        initLogin();           // ✓ monta os componentes
+        estilizarPainel();      // Configura aparência do painel
+        initLogin();            // Monta os componentes de login
         login.setVisible(true);
     }
 
-    // --------------------------
-    // VISUAL PREMIUM DO PAINEL
-    // --------------------------
+    // Configura estilo visual do painel
     private void estilizarPainel() {
-        login.setOpaque(false);    // permite desenhar bordas arredondadas
+        login.setOpaque(false);
         setOpaque(false);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         int arc = 40;
 
-        // sombra
+        // Desenha sombra
         g2.setColor(new Color(0, 0, 0, 35));
         g2.fillRoundRect(8, 8, getWidth() - 16, getHeight() - 16, arc, arc);
 
-        // fundo arredondado
+        // Desenha fundo arredondado
         g2.setColor(Color.WHITE);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), arc, arc);
     }
 
-    // --------------------------
-    // MONTAGEM DO LOGIN
-    // --------------------------
+    // Cria os componentes da tela de login
     private void initLogin() {
 
         login.setLayout(new net.miginfocom.swing.MigLayout(
                 "wrap", "push[center]push", "push[]25[]10[]10[]25[]push"
         ));
 
-        // --- TÍTULO ---
-        javax.swing.JLabel label = new javax.swing.JLabel("Login");
+        // Título
+        JLabel label = new JLabel("Login");
         label.setFont(new Font("SansSerif", Font.BOLD, 32));
         label.setForeground(new Color(7, 164, 121));
         login.add(label, "gapbottom 15");
 
-        // --- CAMPO EMAIL ---
+        // Campo de credencial
         MyTextField txtId = new MyTextField();
         txtId.setHint("Credencial");
         txtId.setBackground(new Color(240, 255, 250));
         txtId.setFont(new Font("SansSerif", Font.PLAIN, 15));
         login.add(txtId, "w 65%, h 45!");
 
-        // --- CAMPO SENHA ---
+        // Campo de senha
         MyPasswordField txtPass = new MyPasswordField();
         txtPass.setHint("Senha");
         txtPass.setBackground(new Color(240, 255, 250));
         txtPass.setFont(new Font("SansSerif", Font.PLAIN, 15));
         login.add(txtPass, "w 65%, h 45!");
 
-        // --- BOTÃO LOGIN ---
+        // Botão de login
         Button cmd = new Button();
         cmd.setBackground(new Color(7, 164, 121));
         cmd.setForeground(Color.WHITE);
@@ -85,23 +77,23 @@ public class PainelLoginAndRegister extends javax.swing.JLayeredPane {
         cmd.setFont(new Font("SansSerif", Font.BOLD, 15));
         login.add(cmd, "w 40%, h 40!");
 
+        // Ação do botão
         cmd.addActionListener(e -> {
             String id = txtId.getText();
             String pass = new String(txtPass.getPassword());
 
-            AdminDAO dao = new AdminDAO(); // aqui cria o DAO correto
+            AdminDAO dao = new AdminDAO();
 
             try {
                 if (dao.login(id, pass)) {
                     JOptionPane.showMessageDialog(this, "Bem-vindo admin!");
 
-                    // FECHAR A JANELA ATUAL (a de login)
+                    // Fecha a janela atual
                     JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
                     frame.dispose();
 
-                    // ABRIR A JANELA PRINCIPAL
+                    // Abre a janela principal
                     new JanelaPrincipal();
-
                 } else {
                     JOptionPane.showMessageDialog(this, "Login incorreto.");
                 }
@@ -109,18 +101,17 @@ public class PainelLoginAndRegister extends javax.swing.JLayeredPane {
                 throw new RuntimeException(ex);
             }
         });
-
     }
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
-        login = new javax.swing.JPanel();
-        setLayout(new java.awt.BorderLayout());
-        add(login, java.awt.BorderLayout.CENTER);
+        login = new JPanel();
+        setLayout(new BorderLayout());
+        add(login, BorderLayout.CENTER);
     }
 
-    // Sem registro, então não faz nada
+    // Não utilizado no momento
     public void showRegister(boolean show) {}
 
-    private javax.swing.JPanel login;
+    private JPanel login;
 }

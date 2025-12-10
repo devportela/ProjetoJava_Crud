@@ -9,18 +9,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
+// Classe para exibir relatório de produtos e permitir atualização/exclusão
 public class RelatorioProduto extends JFrame {
 
-    private JTable tabela;
-    private DefaultTableModel modelo;
-    private ProdutoDAO dao = new ProdutoDAO();
-    private JLabel total;
+    private JTable tabela;                  // Tabela que exibe os produtos
+    private DefaultTableModel modelo;       // Modelo de dados da tabela
+    private ProdutoDAO dao = new ProdutoDAO(); // DAO para manipulação do banco
+    private JLabel total;                   // Label para mostrar total de produtos
 
     public RelatorioProduto() {
         setTitle("Relatório de Produtos");
         setSize(900, 500);
         setLocationRelativeTo(null);
 
+        // Configura modelo de tabela com colunas
         modelo = new DefaultTableModel(
                 new Object[]{"ID", "Nome", "Descrição", "Quantidade", "Preço Unitário", "Fornecedor"}, 0
         );
@@ -28,11 +30,14 @@ public class RelatorioProduto extends JFrame {
         tabela = new JTable(modelo);
         JScrollPane scroll = new JScrollPane(tabela);
 
+        // Carrega dados do banco
         carregarProdutos();
 
+        // ---------------- BOTÕES ----------------
         JButton btnAtualizar = new JButton("Atualizar");
         JButton btnExcluir = new JButton("Excluir");
 
+        // Ações dos botões
         btnAtualizar.addActionListener(this::acaoAtualizar);
         btnExcluir.addActionListener(this::acaoExcluir);
 
@@ -40,14 +45,17 @@ public class RelatorioProduto extends JFrame {
         painelBotoes.add(btnAtualizar);
         painelBotoes.add(btnExcluir);
 
+        // ---------------- TOTAL DE PRODUTOS ----------------
         total = new JLabel("Total de produtos cadastrados: " + modelo.getRowCount());
         total.setFont(new Font("Arial", Font.BOLD, 16));
         total.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
+        // Painel inferior com botões + total
         JPanel painelInferior = new JPanel(new BorderLayout());
         painelInferior.add(painelBotoes, BorderLayout.NORTH);
         painelInferior.add(total, BorderLayout.SOUTH);
 
+        // ---------------- LAYOUT PRINCIPAL ----------------
         setLayout(new BorderLayout());
         add(scroll, BorderLayout.CENTER);
         add(painelInferior, BorderLayout.SOUTH);
@@ -55,8 +63,11 @@ public class RelatorioProduto extends JFrame {
         setVisible(true);
     }
 
+    // -----------------------------------------------------
+    // CARREGA PRODUTOS NO MODELO DA TABELA
+    // -----------------------------------------------------
     private void carregarProdutos() {
-        modelo.setRowCount(0);
+        modelo.setRowCount(0); // Limpa a tabela
 
         List<Produto> lista = dao.listar();
 
@@ -71,11 +82,15 @@ public class RelatorioProduto extends JFrame {
             });
         }
 
+        // Atualiza label com total de produtos
         if (total != null) {
             total.setText("Total de produtos cadastrados: " + modelo.getRowCount());
         }
     }
 
+    // -----------------------------------------------------
+    // AÇÃO DE EXCLUIR PRODUTO
+    // -----------------------------------------------------
     private void acaoExcluir(ActionEvent e) {
         int linha = tabela.getSelectedRow();
 
@@ -94,11 +109,14 @@ public class RelatorioProduto extends JFrame {
         );
 
         if (confirm == JOptionPane.YES_OPTION) {
-            dao.delete(id);
-            carregarProdutos();
+            dao.delete(id); // Remove do banco
+            carregarProdutos(); // Recarrega tabela após exclusão
         }
     }
 
+    // -----------------------------------------------------
+    // AÇÃO DE ATUALIZAR PRODUTO
+    // -----------------------------------------------------
     private void acaoAtualizar(ActionEvent e) {
         int linha = tabela.getSelectedRow();
 
@@ -107,6 +125,7 @@ public class RelatorioProduto extends JFrame {
             return;
         }
 
+        // Cria objeto Produto a partir da linha selecionada
         Produto p = new Produto();
         p.setId((int) tabela.getValueAt(linha, 0));
         p.setNome((String) tabela.getValueAt(linha, 1));
@@ -115,6 +134,7 @@ public class RelatorioProduto extends JFrame {
         p.setPrecoUnitario((double) tabela.getValueAt(linha, 4));
         p.setFornecedor((String) tabela.getValueAt(linha, 5));
 
+        // Painel popup para edição dos campos
         JTextField txtNome = new JTextField(p.getNome());
         JTextField txtDesc = new JTextField(p.getDescricao());
         JTextField txtQtd = new JTextField(String.valueOf(p.getQuantidade()));
@@ -137,14 +157,15 @@ public class RelatorioProduto extends JFrame {
         );
 
         if (resultado == JOptionPane.OK_OPTION) {
+            // Atualiza objeto produto com novos valores
             p.setNome(txtNome.getText());
             p.setDescricao(txtDesc.getText());
             p.setQuantidade(Integer.parseInt(txtQtd.getText()));
             p.setPrecoUnitario(Double.parseDouble(txtPreco.getText()));
             p.setFornecedor(txtFornecedor.getText());
 
-            dao.atualizar(p);
-            carregarProdutos();
+            dao.atualizar(p); // Atualiza no banco
+            carregarProdutos(); // Recarrega tabela
         }
     }
 }

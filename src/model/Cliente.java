@@ -3,19 +3,19 @@ package model;
 
 public class Cliente {
 
+    // Dados pessoais e de contato
     private String nome;
     private String cpf;
     private int id;
-
     private String email;
-
     private String telefone;
-
     private String cidade;
     private String rua;
 
+    // Indica se o cliente deseja receber notificações
     private boolean receberNotificacao;
 
+    // ===== GETTERS E SETTERS =====
 
     public String getTelefone() {
         return telefone;
@@ -24,7 +24,6 @@ public class Cliente {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-
 
     public String getNome() {
         return nome;

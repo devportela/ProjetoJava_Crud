@@ -5,6 +5,7 @@ import gui.PainelProdutoGUI;
 
 import javax.swing.*;
 
+// Classe que representa a janela principal do sistema CRUD
 public class JanelaPrincipal extends JFrame {
 
     public JanelaPrincipal() {
@@ -12,20 +13,22 @@ public class JanelaPrincipal extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        // Cria a barra de menus e itens
         criarMenus();
 
+        // Configurações básicas da janela
         setSize(450, 67);
         setResizable(false);
         setVisible(true);
-
-
     }
+
+    // Método para criar a barra de menus e adicionar ações
     private void criarMenus() {
         JMenuBar barraMenu = new JMenuBar();
 
         // =============== MENU CLIENTE ===============
         JMenu menuCliente = new JMenu("Cliente");
-        menuCliente.setIcon(new ImageIcon("src/imgs/cliente_icon.png"));  // Aqui você adiciona o ícone ao menu
+        menuCliente.setIcon(new ImageIcon("src/imgs/cliente_icon.png")); // Ícone do menu
         JMenuItem itemCadCliente = new JMenuItem("Painel Cadastro De Cliente");
         menuCliente.add(itemCadCliente);
 
@@ -49,7 +52,7 @@ public class JanelaPrincipal extends JFrame {
         JMenuItem itemSair = new JMenuItem("Sair");
         menuSistema.add(itemSair);
 
-        // ---- Adiciona menus à barra com espaço ----
+        // ---- Adiciona menus à barra com espaçamento ----
         barraMenu.add(menuCliente);
         barraMenu.add(Box.createHorizontalStrut(35));
         barraMenu.add(menuProduto);
@@ -58,20 +61,14 @@ public class JanelaPrincipal extends JFrame {
         barraMenu.add(Box.createHorizontalStrut(35));
         barraMenu.add(menuSistema);
 
+        // Define a barra de menus na janela
         setJMenuBar(barraMenu);
 
-        // =============== AÇÕES ====================
-        // MENU CLIENTE
-        itemCadCliente.addActionListener(e-> new PainelClienteGUI());
-
-        // MENU PRODUTO
-        itemCadProduto.addActionListener(e -> new PainelProdutoGUI());
-
-        // RELATÓRIOS
-        itemRelCliente.addActionListener(e -> new RelatorioCliente());
-        itemRelProduto.addActionListener(e -> new RelatorioProduto());
-
-        // SAIR
-        itemSair.addActionListener(e -> System.exit(0));
+        // =============== AÇÕES DOS ITENS DE MENU ====================
+        itemCadCliente.addActionListener(e -> new PainelClienteGUI()); // Abrir painel cliente
+        itemCadProduto.addActionListener(e -> new PainelProdutoGUI()); // Abrir painel produto
+        itemRelCliente.addActionListener(e -> new RelatorioCliente()); // Gerar relatório clientes
+        itemRelProduto.addActionListener(e -> new RelatorioProduto()); // Gerar relatório produtos
+        itemSair.addActionListener(e -> System.exit(0)); // Sair do sistema
     }
 }

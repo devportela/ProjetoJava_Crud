@@ -9,18 +9,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
+// Classe para exibir relatório de clientes e permitir atualização/exclusão
 public class RelatorioCliente extends JFrame {
 
-    private JTable tabela;
-    private DefaultTableModel modelo;
-    private ClienteDAO dao = new ClienteDAO();
-    private JLabel total;
+    private JTable tabela;                // Tabela que exibe os clientes
+    private DefaultTableModel modelo;     // Modelo de dados da tabela
+    private ClienteDAO dao = new ClienteDAO(); // DAO para manipulação do banco
+    private JLabel total;                 // Label para mostrar total de clientes
 
     public RelatorioCliente() {
         setTitle("Relatório de Clientes");
         setSize(900, 500);
         setLocationRelativeTo(null);
 
+        // Configura modelo de tabela com colunas
         modelo = new DefaultTableModel(
                 new Object[]{"ID", "Nome", "CPF", "Email", "Telefone", "Cidade", "Rua", "Recebe Notificação"}, 0
         );
@@ -28,12 +30,14 @@ public class RelatorioCliente extends JFrame {
         tabela = new JTable(modelo);
         JScrollPane scroll = new JScrollPane(tabela);
 
+        // Carrega dados do banco
         carregarClientes();
 
         // ---------------- BOTÕES ----------------
         JButton btnAtualizar = new JButton("Atualizar");
         JButton btnExcluir = new JButton("Excluir");
 
+        // Ações dos botões
         btnAtualizar.addActionListener(this::acaoAtualizar);
         btnExcluir.addActionListener(this::acaoExcluir);
 
@@ -60,10 +64,10 @@ public class RelatorioCliente extends JFrame {
     }
 
     // -----------------------------------------------------
-    // CARREGAR CLIENTES
+    // CARREGA CLIENTES NO MODELO DA TABELA
     // -----------------------------------------------------
     private void carregarClientes() {
-        modelo.setRowCount(0);
+        modelo.setRowCount(0); // Limpa a tabela
 
         List<Cliente> lista = dao.listar();
 
@@ -80,13 +84,14 @@ public class RelatorioCliente extends JFrame {
             });
         }
 
+        // Atualiza label com total de clientes
         if (total != null) {
             total.setText("Total de clientes cadastrados: " + modelo.getRowCount());
         }
     }
 
     // -----------------------------------------------------
-    // EXCLUIR CLIENTE
+    // AÇÃO DE EXCLUIR CLIENTE
     // -----------------------------------------------------
     private void acaoExcluir(ActionEvent e) {
         int linha = tabela.getSelectedRow();
@@ -107,12 +112,12 @@ public class RelatorioCliente extends JFrame {
 
         if (confirm == JOptionPane.YES_OPTION) {
             dao.deletar(id);
-            carregarClientes();
+            carregarClientes(); // Atualiza tabela após exclusão
         }
     }
 
     // -----------------------------------------------------
-    // ATUALIZAR CLIENTE NO PRÓPRIO RELATÓRIO
+    // AÇÃO DE ATUALIZAR CLIENTE
     // -----------------------------------------------------
     private void acaoAtualizar(ActionEvent e) {
         int linha = tabela.getSelectedRow();
@@ -122,6 +127,7 @@ public class RelatorioCliente extends JFrame {
             return;
         }
 
+        // Cria objeto Cliente a partir da linha selecionada
         Cliente c = new Cliente();
         c.setId((int) tabela.getValueAt(linha, 0));
         c.setNome((String) tabela.getValueAt(linha, 1));
@@ -132,7 +138,7 @@ public class RelatorioCliente extends JFrame {
         c.setRua((String) tabela.getValueAt(linha, 6));
         c.setReceberNotificacao("Sim".equals(tabela.getValueAt(linha, 7)));
 
-        // POPUP DE EDIÇÃO
+        // Painel popup para edição dos campos
         JTextField txtNome = new JTextField(c.getNome());
         JTextField txtCpf = new JTextField(c.getCpf());
         JTextField txtEmail = new JTextField(c.getEmail());
@@ -159,6 +165,7 @@ public class RelatorioCliente extends JFrame {
         );
 
         if (resultado == JOptionPane.OK_OPTION) {
+            // Atualiza objeto cliente com novos valores
             c.setNome(txtNome.getText());
             c.setCpf(txtCpf.getText());
             c.setEmail(txtEmail.getText());
@@ -167,9 +174,8 @@ public class RelatorioCliente extends JFrame {
             c.setRua(txtRua.getText());
             c.setReceberNotificacao(chkNotificacao.isSelected());
 
-            dao.atualizar(c);
-            carregarClientes();
+            dao.atualizar(c); // Atualiza no banco
+            carregarClientes(); // Recarrega tabela
         }
     }
-
 }

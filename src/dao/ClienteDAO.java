@@ -1,10 +1,13 @@
 package dao;
+
 import model.Cliente;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteDAO {
+
+    // Salva um novo cliente no banco
     public void salvar(Cliente c) {
         String sql = "INSERT INTO cliente (nome, cpf, email, telefone, cidade, rua, receberNT) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -28,12 +31,9 @@ public class ClienteDAO {
         }
     }
 
-    // ===========================
-    //  LISTAR CLIENTES
-    // ===========================
+    // Lista todos os clientes cadastrados
     public List<Cliente> listar() {
         List<Cliente> lista = new ArrayList<>();
-
         String sql = "SELECT * FROM cliente";
 
         try (Connection conn = Conexao.getConnection();
@@ -50,7 +50,7 @@ public class ClienteDAO {
                 c.setTelefone(rs.getString("telefone"));
                 c.setCidade(rs.getString("cidade"));
                 c.setRua(rs.getString("rua"));
-                c.setReceberNotificacao(rs.getBoolean("receberNT")); // ← CORREÇÃO
+                c.setReceberNotificacao(rs.getBoolean("receberNT"));
 
                 lista.add(c);
             }
@@ -62,10 +62,7 @@ public class ClienteDAO {
         return lista;
     }
 
-
-    // ===========================
-    //  ATUALIZAR CLIENTE
-    // ===========================
+    // Atualiza os dados de um cliente
     public void atualizar(Cliente c) {
         String sql = "UPDATE cliente SET nome=?, cpf=?, email=?, telefone=?, cidade=?, rua=?, receberNT=? "
                 + "WHERE id_cliente=?";
@@ -90,9 +87,7 @@ public class ClienteDAO {
         }
     }
 
-    // ===========================
-    //  DELETAR CLIENTE
-    // ===========================
+    // Remove um cliente pelo ID
     public void deletar(int id) {
         String sql = "DELETE FROM cliente WHERE id_cliente=?";
 
@@ -108,5 +103,3 @@ public class ClienteDAO {
         }
     }
 }
-
-
